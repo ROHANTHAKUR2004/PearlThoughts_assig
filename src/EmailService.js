@@ -12,7 +12,7 @@ export class EmailService {
       { provider: new MockProviderA(), cb: new CircuitBreaker(3, 5000) },
       { provider: new MockProviderB(), cb: new CircuitBreaker(3, 5000) },
     ];
-    this.rateLimiter = new RateLimiter(5, 10000); // 5 requests per 10s
+    this.rateLimiter = new RateLimiter(5, 10000); 
     this.statusTracker = new StatusTracker();
     this.sentIds = new Set();
     this.queue = new Queue();
@@ -21,7 +21,7 @@ export class EmailService {
   async sendEmail(email) {
     if (this.sentIds.has(email.id)) {
       Logger.log(`Duplicate detected for ID: ${email.id}`);
-      return { status: 'duplicate' };
+      return { status: 'duplicate email send' };
     }
 
     if (!this.rateLimiter.isAllowed()) {
